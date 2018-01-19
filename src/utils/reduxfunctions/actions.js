@@ -10,6 +10,7 @@ export const types = {
 }
 export function postData(optData) {
     return function (dispatch, state) {
+        console.log("STATE : ",state().form[optData.form].values," END POINT ",optData.params.apiEndPoint);
         return queryApi.sendData(state().form[optData.form].values, optData.params.apiEndPoint).then((newData) => {
             if (newData.err) {
                 dispatch({
