@@ -5,6 +5,7 @@ import Chart from "./Chart";
 import ChartHeader from "./ChartHeader";
 import {connect} from "react-redux";
 import {getOrderList} from "../../../utils/reduxfunctions/actions";
+import OrderTable from "./OrderTable";
 
 function parseData(parse) {
     return function (d) {
@@ -40,7 +41,7 @@ class AdvancedChart extends React.Component {
         }
         return (
             <div>
-
+                <OrderTable data={this.props.data}/>
             </div>
         )
     }

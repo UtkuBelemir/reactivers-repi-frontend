@@ -8,6 +8,9 @@ import {cookieByName} from './utils/utils';
 
 
 window.getCookie = cookieByName;
+String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+};
 ReactDOM.render(
     <Provider store={store}>
             <Router/>
