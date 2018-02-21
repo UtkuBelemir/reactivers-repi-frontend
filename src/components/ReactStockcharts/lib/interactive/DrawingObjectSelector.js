@@ -88,10 +88,8 @@ class DrawingObjectSelector extends Component {
 				svgDraw={noop}
 				canvasToDraw={getMouseCanvas}
 				canvasDraw={noop}
-
 				onMouseDown={this.handleClick}
 				onDoubleClick={this.handleDoubleClick}
-
 				drawOn={["mousemove", "pan", "drag"]}
 			/>
 		);

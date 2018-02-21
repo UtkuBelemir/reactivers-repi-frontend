@@ -3,6 +3,8 @@ import {timeParse} from "d3-time-format";
 import React from 'react';
 import Chart from "./Chart";
 import ChartHeader from "./ChartHeader";
+import {connect} from "react-redux";
+import {getOrderList} from "../../../utils/reduxfunctions/actions";
 
 function parseData(parse) {
     return function (d) {
@@ -18,42 +20,41 @@ function parseData(parse) {
 
 const parseDate = timeParse("%Y-%m-%d %-I:%M:%S");
 
-export function getData() {
-    return fetch("//rrag.github.io/react-stockcharts/data/bitstamp_xbtusd_4h.csv")
-        .then(response => response.text())
-        .then(data => {
-            return csvParse(data, parseData(parseDate))
-        })
-}
-
-export default class AdvancedChart extends React.Component {
+//csvParse(data, parseData(parseDate)
+class AdvancedChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             chartType: "candle",
             data: null
         }
+        props.getOrderList('//rrag.github.io/react-stockcharts/data/bitstamp_xbtusd_4h.csv');
     }
-
-    componentDidMount() {
-        getData().then(data => {
-            this.setState({data})
-        })
-    }
-
     render() {
-        if (this.state.data == null) {
-            return <div>Loading...</div>
+        if (this.props.loading) {
+            return (
+                <div>
+                    Loading
+                </div>
+            )
         }
         return (
             <div>
 
-                <Chart type="svg" width={window.innerWidth} ratio={1} data={this.state.data} height={window.innerHeight}
-                       chartType={this.state.chartType}
-                       toolEvents={
-                           (e) => this.setState({toolEvents : e})
-                       }/>
             </div>
         )
     }
 }
+/*
+  <Chart type="svg" width={window.innerWidth} ratio={1} data={this.props.data} height={window.innerHeight}
+                       chartType={this.state.chartType}
+                       toolEvents={
+                           (e) => this.setState({toolEvents: e})
+                       }/>
+ */
+export default connect((state) => {
+    return {
+        data: state && state.datas && state.datas.temp_data && csvParse(state.datas.temp_data, parseData(parseDate)),
+        loading: state && state.datas && state.datas.loading
+    }
+}, {getOrderList})(AdvancedChart);

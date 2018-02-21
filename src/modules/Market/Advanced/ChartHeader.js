@@ -8,7 +8,6 @@ export default class ChartHeader extends React.Component {
             <Menu
                 style={{borderBottom: 'none'}}
                 onClick={(e) => {
-                    console.log(e);
                     if(e.item.props.evType === "chartType"){
                         this.props.setChartType(e.key)
                     }

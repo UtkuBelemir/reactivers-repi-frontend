@@ -1,12 +1,15 @@
 import queryApi from './api';
 
 export const types = {
-    POST_DATA_FAILED: 'POST_DATA_FAILED',
-    POST_DATA_SUCCESS: 'POST_DATA_SUCCESS',
-    PUSH_NOTIFICATION: 'PUSH_NOTIFICATION',
-    CLEAR_NOTIFICATION: 'CLEAR_NOTIFICATION',
-    LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS',
-    LOGIN_USER_FAILED: 'LOGIN_USER_FAILED',
+    POST_DATA_FAILED    :   'POST_DATA_FAILED',
+    POST_DATA_SUCCESS   :   'POST_DATA_SUCCESS',
+    PUSH_NOTIFICATION   :   'PUSH_NOTIFICATION',
+    CLEAR_NOTIFICATION  :   'CLEAR_NOTIFICATION',
+    LOGIN_USER_SUCCESS  :   'LOGIN_USER_SUCCESS',
+    LOGIN_USER_FAILED   :   'LOGIN_USER_FAILED',
+    DATA_LOADING        :   'DATA_LOADING',
+    FETCH_DATA_SUCCESS  :   'FETCH_DATA_SUCCESS',
+    FETCH_DATA_FAILED   :   'FETCH_DATA_FAILED',
 }
 export function postData(optData) {
     return function (dispatch, state) {
@@ -63,6 +66,32 @@ export function userLogin(optData) {
             })
             dispatch(showNotification(error, "red"))
         })
+    }
+}
+export function getOrderList(url){
+   return function(dispatch,state){
+       dispatch(setLoading(true));
+       return queryApi.getDataFromOutsider(url).then( ({res}) => {
+           dispatch({
+               type: types.FETCH_DATA_SUCCESS,
+               data_name : "temp_data",
+               data: res
+           });
+           dispatch(setLoading(false));
+       }).catch( (err) => {
+           dispatch({
+               type: types.FETCH_DATA_FAILED,
+               data_name : "change_this",
+           });
+           dispatch(setLoading(false));
+       })
+   }
+
+}
+export function setLoading(status = true) {
+    return{
+        type : types.DATA_LOADING,
+        status
     }
 }
 export function showNotification(infoText, infoColor) {
