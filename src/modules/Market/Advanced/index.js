@@ -51,6 +51,7 @@ class AdvancedChart extends React.Component {
                        toolEvents={
                            (e) => this.setState({toolEvents: e})
                        }/>
+
  */
 export default connect((state) => {
     return {
