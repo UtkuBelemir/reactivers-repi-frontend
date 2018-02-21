@@ -9,5 +9,15 @@ class QueryApi {
             return {err : error}
         })
     }
+    static getDataFromOutsider(url){
+        return axios.get(url)
+            .then(function (response) {
+                return {res :response.data}
+            })
+            .catch(function (error) {
+                return {err :error}
+            });
+    }
+
 }
 export default QueryApi;
