@@ -1,5 +1,5 @@
 import queryApi from './api';
-
+import {idGenerator} from "../utils";
 export const types = {
     POST_DATA_FAILED    :   'POST_DATA_FAILED',
     POST_DATA_SUCCESS   :   'POST_DATA_SUCCESS',
@@ -11,9 +11,34 @@ export const types = {
     FETCH_DATA_SUCCESS  :   'FETCH_DATA_SUCCESS',
     FETCH_DATA_FAILED   :   'FETCH_DATA_FAILED',
 }
+export function userLogin(redirect) {
+        return function (dispatch, state) {
+            return queryApi.sendData(state().form.frm_user_login.values, "login").then((newData) => {
+                if (newData.err) {
+                    dispatch({
+                        type: types.LOGIN_USER_FAILED,
+                        data: newData.err
+                    })
+                    dispatch(showNotification('Kullanıcı Adı veya Şifre Hatalı', "error"))
+                } else {
+                    dispatch({
+                        type: types.LOGIN_USER_SUCCESS,
+                        data: newData
+                    });
+                    dispatch(showNotification("Başarıyla Giriş Yapıldı", "success","user_login"))
+                    setTimeout( () => redirect(),1500)
+                }
+            }).catch((error) => {
+                dispatch({
+                    type: types.LOGIN_USER_FAILED,
+                    data: error
+                })
+                dispatch(showNotification("Sunucuyla Bağlantı Kurulamadı","error"))
+            })
+        }
+}
 export function postData(optData) {
     return function (dispatch, state) {
-        console.log("STATE : ",state().form[optData.form].values," END POINT ",optData.params.apiEndPoint);
         return queryApi.sendData(state().form[optData.form].values, optData.params.apiEndPoint).then((newData) => {
             if (newData.err) {
                 dispatch({
@@ -26,9 +51,11 @@ export function postData(optData) {
                     type: types.POST_DATA_SUCCESS,
                     data: newData
                 });
-                dispatch(showNotification("Form Başarıyla Oluşturuldu.", "green"))
+                if(optData.successMsg){
+                    dispatch(showNotification(optData.successMsg,"success"))
+                }
                 if (optData.onSave) {
-                    optData.onSave(newData.res.data)
+                    optData.onSave(newData.data)
                 }
             }
         }).catch((error) => {
@@ -36,35 +63,9 @@ export function postData(optData) {
                 type: types.POST_DATA_FAILED,
                 data: error
             })
-            dispatch(showNotification("Form Oluşturulurken Hata Oluştu. Hata: " + error, "red"))
-        })
-    }
-}
-export function userLogin(optData) {
-    return function (dispatch, state) {
-        return queryApi.sendData(state().form.frm_user_login.values, "login").then((newData) => {
-            if (newData.err) {
-                dispatch({
-                    type: types.LOGIN_USER_FAILED,
-                    data: newData.err
-                })
-                dispatch(showNotification(newData.err, "red"))
-            } else {
-                dispatch({
-                    type: types.LOGIN_USER_SUCCESS,
-                    data: newData.res.data
-                });
-                dispatch(showNotification("Başarıyla Giriş Yapıldı", "green"))
-                if (optData.onSave) {
-                    optData.onSave(newData.res.data)
-                }
+            if(optData.errMsg){
+                dispatch(showNotification(optData.errMsg,"error"))
             }
-        }).catch((error) => {
-            dispatch({
-                type: types.LOGIN_USER_FAILED,
-                data: error
-            })
-            dispatch(showNotification(error, "red"))
         })
     }
 }
@@ -94,10 +95,17 @@ export function setLoading(status = true) {
         status
     }
 }
-export function showNotification(infoText, infoColor) {
+export function showNotification(infoText, notificationType,id) {
     return {
         type: types.PUSH_NOTIFICATION,
         infoText,
-        infoColor,
+        notificationType,
+        id
+    }
+}
+export function clearNotification(notificationId) {
+    return {
+        type: types.CLEAR_NOTIFICATION,
+        id : notificationId
     }
 }

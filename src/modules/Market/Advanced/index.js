@@ -41,7 +41,11 @@ class AdvancedChart extends React.Component {
         }
         return (
             <div>
-                <OrderTable data={this.props.data}/>
+                <Chart type="svg" width={window.innerWidth} ratio={1} data={this.props.data} height={window.innerHeight}
+                       chartType={this.state.chartType}
+                       toolEvents={
+                           (e) => this.setState({toolEvents: e})
+                       }/>
             </div>
         )
     }

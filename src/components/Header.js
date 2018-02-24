@@ -1,4 +1,4 @@
-import LogoPlaceHolder from '../../assets/logoph.png';
+import LogoPlaceHolder from '../assets/logoph.png';
 import React from 'react';
 import {Icon, Menu} from "antd";
 const SubMenu = Menu.SubMenu;

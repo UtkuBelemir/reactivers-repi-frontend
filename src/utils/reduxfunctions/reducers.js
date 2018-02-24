@@ -10,17 +10,22 @@ export function apiReducer(state = {}, action) {
 export function userReducer(state = {}, action) {
     switch (action.type) {
         case types.LOGIN_USER_SUCCESS:
+            document.cookie = "token="+action.data.token
             return {...state, ...action.data}
         default :
             return state
     }
 }
-export function notificationReducers(state = {}, action) {
+export function notificationReducers(state = [], action) {
     switch (action.type) {
         case types.PUSH_NOTIFICATION:
-            return {...state, infoText : action.infoText, infoColor: action.infoColor}
+
+            if(state.filter( (i1) => i1.id === action.id).length <= 0){
+                return [...state,{infoText : action.infoText, notificationType: action.notificationType,id:action.id}]
+            }
+            return state
         case types.CLEAR_NOTIFICATION:
-            return {};
+            return [...state.filter( (i1) => i1.id !== action.id)];
         default :
             return state
     }

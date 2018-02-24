@@ -29,7 +29,7 @@ const customColors = {
     redA700 : '#D50000',
     greenA700 : '#00C853'
 }
-const fillFunc = (d) => d.close > d.open ? customColors.redA700 : customColors.greenA700
+const fillFunc = (d) => d.close > d.open ?  customColors.greenA700 : customColors.redA700
 class CandleStickStockScaleChart extends React.Component {
     constructor(props) {
         super(props);
