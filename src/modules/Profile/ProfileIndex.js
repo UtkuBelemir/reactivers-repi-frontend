@@ -1,6 +1,7 @@
 import ProfileMain from './Details/Main';
 import React from 'react';
 import {Menu, Icon, Switch, Alert} from 'antd';
+import CryptoBalance from "./Details/CryptoBalance";
 
 const {SubMenu} = Menu;
 export default class ProfileIndex extends React.Component {
@@ -12,7 +13,11 @@ export default class ProfileIndex extends React.Component {
     subRouter() {
         if (this.props.match.params.subpage === "main") {
             return <ProfileMain/>
-        } else {
+        }
+        else if(this.props.match.params.subpage === "balance") {
+            return <CryptoBalance/>
+        }
+        else {
             this.props.history.push("/profile/main");
         }
     }
