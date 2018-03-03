@@ -21,7 +21,7 @@ export default class RouterIndex extends React.Component {
                         <Route exact path="/login" component={UserLogin}/>
                         <Route exact path="/register" component={UserRegister}/>
                         <Route exact path="/market/adv/:parity" component={AdvancedMarket}/>
-                        <Route exact path="/profile/:subpage" component={ProfileIndex}/>
+                        <Route path="/profile/:subpage" component={ProfileIndex}/>
                     </div>
                     <Route exact component={Footer}/>
                 </div>

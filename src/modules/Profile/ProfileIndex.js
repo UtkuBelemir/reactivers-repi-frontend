@@ -7,21 +7,21 @@ const {SubMenu} = Menu;
 export default class ProfileIndex extends React.Component {
     constructor(props) {
         super(props);
-        this.subRouter = this.subRouter.bind(this)
+        this.state={
+            activePage : "main"
+        }
+        this.subRouter = this.subRouter.bind(this);
     }
-
-    subRouter() {
-        if (this.props.match.params.subpage === "main") {
+    componentWillReceiveProps(nextProps){
+        this.setState({activePage : nextProps.match.params.subpage});
+    }
+    subRouter(){
+        if(this.state.activePage == 'balance'){
+            return <CryptoBalance/>
+        }else{
             return <ProfileMain/>
         }
-        else if(this.props.match.params.subpage === "balance") {
-            return <CryptoBalance/>
-        }
-        else {
-            this.props.history.push("/profile/main");
-        }
     }
-
     render() {
         return (
             <div style={{
@@ -34,23 +34,26 @@ export default class ProfileIndex extends React.Component {
             }}>
                 <div style={{width: 256, minHeight: 'calc(100vh - 160px)'}}>
                     <Menu
+                        onClick={(e) => {
+                            this.props.history.push(e.key)
+                        }}
                         style={{width: 256, border: '1px solid #EEE', minHeight: 'calc(100vh - 160px)'}}
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={["sub1", "sub2"]}
+                        defaultSelectedKeys={[this.props.match.params.subpage]}
+                        defaultOpenKeys={["cryptobalance", "banking"]}
                         mode="inline"
                         theme="light"
                     >
-                        <Menu.Item key="1" style={{marginTop: '0px'}}>
+                        <Menu.Item key="main" style={{marginTop: '0px'}}>
                             <Icon type="user"/>
                             Profil Detayı
                         </Menu.Item>
-                        <SubMenu key="sub1" title={<span><Icon type="appstore"/><span>Kripto İşlemler</span></span>}>
-                            <Menu.Item key="11">Bakiye Bilgisi</Menu.Item>
-                            <Menu.Item key="12">Para Yatır</Menu.Item>
-                            <Menu.Item key="13">Para Çek</Menu.Item>
-                            <Menu.Item key="10">İşlem Geçmişi</Menu.Item>
+                        <SubMenu key="cryptobalance" title={<span><Icon type="appstore"/><span>Kripto İşlemler</span></span>}>
+                            <Menu.Item key="balance">Bakiye Bilgisi</Menu.Item>
+                            <Menu.Item key="deposit">Para Yatır</Menu.Item>
+                            <Menu.Item key="withdraw">Para Çek</Menu.Item>
+                            <Menu.Item key="tradehistory">İşlem Geçmişi</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub2" title={<span><Icon type="bank"/><span>Banka İşlemleri</span></span>}>
+                        <SubMenu key="banking" title={<span><Icon type="bank"/><span>Banka İşlemleri</span></span>}>
                             <Menu.Item key="8">Para Yatır</Menu.Item>
                             <Menu.Item key="7">Para Çek</Menu.Item>
                             <Menu.Item key="10">İşlem Geçmişi</Menu.Item>
@@ -65,7 +68,7 @@ export default class ProfileIndex extends React.Component {
                         showIcon
                     />
                     <div style={{paddingTop : 8,minHeight : 'inherit'}}>
-                        <this.subRouter/>
+                        {this.subRouter()}
                     </div>
                 </div>
             </div>

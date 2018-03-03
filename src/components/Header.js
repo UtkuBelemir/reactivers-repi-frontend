@@ -23,12 +23,12 @@ export default class Header extends React.Component {
                     </div>
                     <Menu
                         style={{borderBottom: 'none'}}
-                        onClick={() => null}
+                        onClick={(e) => this.props.history.push(e.key)}
                         mode="horizontal">
 
                         <SubMenu title={<span><Icon type="user"/>Ahmet Dereli</span>} style={{height : 64,display :'flex',alignItems:'center',borderRight : '1px solid #EEE',borderLeft : '1px solid #EEE'}}>
                             <MenuItemGroup title="Hesap İşlemleri">
-                                <Menu.Item key="account:1">Kullanıcı Bilgileri</Menu.Item>
+                                <Menu.Item key="/profile/main">Kullanıcı Bilgileri</Menu.Item>
                                 <Menu.Item key="account:2">Banka Bilgileri</Menu.Item>
                             </MenuItemGroup>
                             <MenuItemGroup title="Para İşlemleri">
