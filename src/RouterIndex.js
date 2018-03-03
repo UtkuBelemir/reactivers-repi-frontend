@@ -9,6 +9,8 @@ import UserLogin from "./modules/Profile/Login";
 import UserRegister from "./modules/Profile/Register";
 import NotificationManager from './components/Notifications'
 import ProfileIndex from "./modules/Profile/ProfileIndex";
+
+
 export default class RouterIndex extends React.Component {
     render() {
         return (

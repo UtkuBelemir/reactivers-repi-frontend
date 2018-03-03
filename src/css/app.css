@@ -1,11 +1,63 @@
 @import '~antd/dist/antd.css';
-#root{
+#root {
     min-height: 100%;
 }
-.reactivers-container{
-    max-width : 1200px;
-    margin : 0 auto;
+
+.reactivers-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
-.reactivers-order-table-row{
+
+.reactivers-order-table-row {
     font-size: 0.5vw;
+}
+
+.profile-view-container {
+    margin: 16px 16px 16px 32px;
+}
+
+.profile-content-cell {
+    margin: 8px;
+}
+
+.container-cell {
+    margin: 8px;
+    padding: 8px;
+}
+
+.container {
+    margin: 8px;
+    padding: 8px;
+}
+
+.content-label {
+    color: #aaa;
+    margin: 0;
+    font-size: 14px;
+}
+
+.content-text {
+    font-size: 18px;
+}
+
+.sell-row {
+    background-color: #b7eb8f
+}
+
+.buy-row {
+    background-color: #ff7875
+}
+
+.button-container {
+    float: right;
+    margin: 8px;
+    padding: 8px;
+}
+
+.field-label {
+    margin: 0
+}
+
+.photo-upload-card {
+    width: 100% !important;
 }

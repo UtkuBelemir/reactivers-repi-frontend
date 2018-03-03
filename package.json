@@ -8,6 +8,7 @@
     "d3-dsv": "^1.0.8",
     "d3-format": "^1.2.2",
     "d3-time-format": "latest",
+    "moment": "^2.21.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-input-mask": "^1.2.2",
