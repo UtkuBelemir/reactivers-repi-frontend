@@ -10,7 +10,9 @@ export function apiReducer(state = {}, action) {
 export function userReducer(state = {}, action) {
     switch (action.type) {
         case types.LOGIN_USER_SUCCESS:
-            document.cookie = "token="+action.data.token
+            document.cookie = "bikriptAuth="+action.data.token
+            return {...state, ...action.data}
+        case types.COOKIE_IS_VALID:
             return {...state, ...action.data}
         default :
             return state

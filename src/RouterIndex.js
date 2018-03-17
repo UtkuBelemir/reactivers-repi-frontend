@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter as Router, Route} from 'react-router-dom';
+import {HashRouter as Router, Redirect, Route} from 'react-router-dom';
 import HomePage from './modules/Home';
 import AdvancedMarket from './modules/Market/Advanced'
 import BasicMarket from './modules/Market/Basic'
@@ -9,9 +9,14 @@ import UserLogin from "./modules/Profile/Login";
 import UserRegister from "./modules/Profile/Register";
 import NotificationManager from './components/Notifications'
 import ProfileIndex from "./modules/Profile/ProfileIndex";
+import {connect} from 'react-redux'
+import {cookieLogin} from './utils/reduxfunctions/actions'
 
-
-export default class RouterIndex extends React.Component {
+class RouterIndex extends React.Component {
+    componentWillMount(){
+        console.log("aaa")
+        this.props.cookieLogin()
+    }
     render() {
         return (
             <Router>
@@ -31,3 +36,4 @@ export default class RouterIndex extends React.Component {
         )
     }
 }
+export default connect(null,{cookieLogin})(RouterIndex);

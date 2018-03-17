@@ -41,7 +41,7 @@ class UserLogin extends React.Component{
                     <a className="login-form-forgot" href="">Şifremi unuttum</a>
                 </div>
                 <div style={{display : 'flex',alignItems : 'center',justifyContent : 'space-between'}}>
-                <Button onClick={ () => this.props.userLogin( () => this.props.history.push("/profile"))} type="primary" htmlType="submit" className="login-form-button" disabled={!this.props.anyTouched || !this.props.valid}>
+                <Button onClick={ () => this.props.userLogin( () => this.props.history.push("/profile/main"))} type="primary" htmlType="submit" className="login-form-button" disabled={!this.props.anyTouched || !this.props.valid}>
                     Giriş Yap
                 </Button> <a onClick={ () => this.props.history.push("/register")}>Kayıt ol!</a>
                 </div>
