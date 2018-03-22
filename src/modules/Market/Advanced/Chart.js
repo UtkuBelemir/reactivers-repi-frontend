@@ -1,14 +1,14 @@
 import React from "react";
 
-import {ChartCanvas, Chart} from "../../../components/ReactStockcharts";
+import {ChartCanvas, Chart} from "react-stockcharts";
 import {
     CandlestickSeries, AreaSeries, LineSeries, BarSeries
-} from "../../../components/ReactStockcharts/lib/series";
-import {XAxis, YAxis} from "../../../components/ReactStockcharts/lib/axes";
+} from "react-stockcharts/lib/series";
+import {XAxis, YAxis} from "react-stockcharts/lib/axes";
 
-import {discontinuousTimeScaleProvider} from "../../../components/ReactStockcharts/lib/scale";
-import {fitWidth} from "../../../components/ReactStockcharts/lib/helper";
-import {last, toObject} from "../../../components/ReactStockcharts/lib/utils";
+import {discontinuousTimeScaleProvider} from "react-stockcharts/lib/scale";
+import {fitWidth} from "react-stockcharts/lib/helper";
+import {last, toObject} from "react-stockcharts/lib/utils";
 import {
     saveInteractiveNodes,
     getInteractiveNodes,
@@ -20,11 +20,11 @@ import {
     EquidistantChannel,
     StandardDeviationChannel,
     GannFan
-} from "../../../components/ReactStockcharts/lib/interactive/index";
+} from "react-stockcharts/lib/interactive/index";
 import {format} from "d3-format";
 import {timeFormat} from 'd3-time-format'
 import ChartHeader from "./ChartHeader";
-import {MouseCoordinateX, MouseCoordinateY,CrossHairCursor} from "../../../components/ReactStockcharts/lib/coordinates";
+import {MouseCoordinateX, MouseCoordinateY,CrossHairCursor} from "react-stockcharts/lib/coordinates";
 const customColors = {
     redA700 : '#D50000',
     greenA700 : '#00C853'

@@ -11,6 +11,13 @@ class QueryApi {
             return {err : error}
         })
     }
+    static getData(apiEndPoint){
+        return axios.get(APIURL + "/" +  apiEndPoint,{headers:{ 'Authorization': cookieByName("bikriptAuth")}}).then((response) => {
+            return {...response.data}
+        }).catch((error) => {
+            return {err : error}
+        })
+    }
     static getDataFromOutsider(url){
         return axios.get(url)
             .then(function (response) {

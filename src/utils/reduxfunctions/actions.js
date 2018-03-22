@@ -12,7 +12,9 @@ export const types = {
     FETCH_DATA_SUCCESS      : 'FETCH_DATA_SUCCESS',
     FETCH_DATA_FAILED       : 'FETCH_DATA_FAILED',
     COOKIE_IS_VALID         : 'COOKIE_IS_VALID',
-    COOKIE_IS_NOT_VALID     : 'COOKIE_IS_NOT_VALID'
+    COOKIE_IS_NOT_VALID     : 'COOKIE_IS_NOT_VALID',
+    GET_DATA_FAILED         : 'GET_DATA_FAILED',
+    GET_DATA_SUCCESS        : 'GET_DATA_SUCCESS',
 }
 
 export function cookieLogin() {
@@ -99,6 +101,42 @@ export function postData(optData) {
         }).catch((error) => {
             dispatch({
                 type: types.POST_DATA_FAILED,
+                data: error
+            })
+            if (optData.errMsg) {
+                dispatch(showNotification(optData.errMsg, "error"))
+            }
+        })
+    }
+}
+
+export function getData(optData) {
+    return function (dispatch, state) {
+        return queryApi.getData(optData.apiEndPoint).then((newData) => {
+            if (newData.err) {
+                dispatch({
+                    type: types.FETCH_DATA_FAILED,
+                    data_name : optData.data_name,
+                    data: newData.err
+                })
+                dispatch(showNotification(newData.err, "red"))
+            } else {
+                dispatch({
+                    type: types.FETCH_DATA_SUCCESS,
+                    data_name : optData.data_name,
+                    data: newData
+                });
+                if (optData.successMsg) {
+                    dispatch(showNotification(optData.successMsg, "success"))
+                }
+                if (optData.onSave) {
+                    optData.onSave(newData.data)
+                }
+            }
+        }).catch((error) => {
+            dispatch({
+                type: types.FETCH_DATA_FAILED,
+                data_name : optData.data_name,
                 data: error
             })
             if (optData.errMsg) {

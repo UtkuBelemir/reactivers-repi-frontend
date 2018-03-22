@@ -48,7 +48,7 @@ export default class ProfileMain extends React.Component {
                     <Button onClick={() => this.setState({ changePasswordDialog: true })} style={{ margin: 8 }}>
                         Şifre Değiştir
                     </Button>
-                    <Button onClick={() => this.push("/profile/balance/deposit/onay")} style={{ margin: 8 }}>
+                    <Button onClick={() => this.props.history.push("/profile/main/verification")} style={{ margin: 8 }}>
                         Hesap Onayla
                     </Button>
                 </div>

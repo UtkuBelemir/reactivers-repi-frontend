@@ -8,7 +8,7 @@ const operationsCol = (path, push) => {
             <Button type="primary" onClick={() => push("/profile/balance/deposit/" + path)} style={{ width: '45%', marginRight: 8 }}>
                 Yatır
             </Button>
-            <Button type="primary" style={{ width: '45%', marginLeft: 8 }}>
+            <Button type="primary" onClick={() => push("/profile/balance/withdraw/" + path)} style={{ width: '45%', marginLeft: 8 }}>
                 Çek
             </Button>
         </div>

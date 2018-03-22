@@ -2,11 +2,12 @@ import ProfileMain from './Details/Main';
 import React from 'react';
 import { Menu, Icon, Switch, Alert } from 'antd';
 import CryptoBalance from "./Details/CryptoBalance";
-import Deposit from "./Details/Deposit";
+import CryptoDeposit from "./Details/CryptoDeposit";
+import CryptoWithdraw from './Details/CryptoWithdraw';
 import TradeHistory from "./Details/TradeHistory";
 import ProfileEdit from "./Details/ProfileEdit";
+import AccountVerification from './Details/AccountVerification';
 import { HashRouter as Router, Route } from 'react-router-dom';
-
 
 const { SubMenu } = Menu;
 export default class ProfileIndex extends React.Component {
@@ -69,7 +70,9 @@ export default class ProfileIndex extends React.Component {
                         <Route exact path="/profile/balance" component={CryptoBalance} />
                         <Route exact path="/profile/tradehistory" component={TradeHistory} />
                         <Route exact path="/profile/main/edit" component={ProfileEdit} />
-                        <Route path="/profile/balance/deposit/:cointype" component={Deposit} />
+                        <Route exact path="/profile/main/verification" component={AccountVerification} />
+                        <Route path="/profile/balance/deposit/:cointype" component={CryptoDeposit} />
+                        <Route path="/profile/balance/withdraw/:cointype" component={CryptoWithdraw} />
                         <Route exact path="/profile/main" component={ProfileMain} />
                     </div>
                 </div>
