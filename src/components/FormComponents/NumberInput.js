@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input} from 'antd';
+import {InputNumber} from 'antd';
 import FormItem from "antd/es/form/FormItem";
 
 export default class TextInput extends React.Component {
@@ -10,7 +10,7 @@ export default class TextInput extends React.Component {
             <FormItem help={touched && !valid ? error : ""}
                       validateStatus={touched && !valid ? "error" : "success"}>
                 {label ? <p className="field-label">{label}</p> : null}
-                <Input {...input} {...rest} type={type} prefix={prefix} placeholder={placeholder}/>
+                <InputNumber {...input} {...rest} type={type} prefix={prefix}/>
             </FormItem>
         )
     }

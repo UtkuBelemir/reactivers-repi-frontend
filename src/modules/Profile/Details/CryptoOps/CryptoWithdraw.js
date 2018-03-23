@@ -1,12 +1,13 @@
 import React from 'react';
 import {Button, Card, Checkbox, Icon, Tooltip} from "antd";
-import {coinsWithSymbolKey} from '../../../assets/currencyicons';
+import {coinsWithSymbolKey} from '../../../../assets/currencyicons/index';
 import {connect} from 'react-redux';
-import {getData, showNotification} from '../../../utils/reduxfunctions/actions';
+import {getData, showNotification} from '../../../../utils/reduxfunctions/actions';
 import QRCode from 'qrcode.react';
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {reduxForm, Field} from 'redux-form';
-import TextInput from "../../../components/FormComponents/TextInput";
+import TextInput from "../../../../components/FormComponents/TextInput";
+import CryptoWithdrawHistory from "./WithdrawHistory";
 const validate = (values) => {
     let errors = {};
     if (values.destination_address == null){
@@ -31,6 +32,7 @@ class CryptoWithdraw extends React.Component {
         const coinDetails = coinsWithSymbolKey[this.props.match.params.cointype];
         coinDetails.symbol = coinDetails.symbol.toUpperCase()
         return(
+            <div style={{minHeight : '100%'}}>
             <Card
                 title={<span><img
                     src={coinDetails.img}/>{`${coinDetails.name} (${coinDetails.symbol.toUpperCase()}) Çekme`}</span>}
@@ -54,7 +56,7 @@ class CryptoWithdraw extends React.Component {
                                prefix={<Icon type="tag-o" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                label="Gönderilecek Miktar"
                                placeholder="Gönderilecek Miktar"/>
-                        <Checkbox onChange={ () => this.setState({userPrompt : true})}>İşlemin gerçekleştirilmesini onaylıyorum</Checkbox>
+                        <Checkbox onChange={ (e) => this.setState({userPrompt: e.target.checked})}>İşlemin gerçekleştirilmesini onaylıyorum</Checkbox>
                     </div>
                     <div className="container-cell">
                         <Button disabled={!this.props.anyTouched || !this.props.valid || !this.state.userPrompt}>
@@ -63,6 +65,11 @@ class CryptoWithdraw extends React.Component {
                     </div>
                 </div>
             </Card>
+                <Card
+                    title="Transfer Geçmişi" style={{marginTop : 16}}>
+                    <CryptoWithdrawHistory/>
+                </Card>
+            </div>
         )
     }
 }

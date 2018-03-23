@@ -1,20 +1,18 @@
 import React from 'react';
-import {DatePicker} from 'antd';
+import {Cascader} from 'antd';
 import FormItem from "antd/es/form/FormItem";
-import moment from 'moment';
 
-const dateFormat = 'DD.MM.YYYY';
 
-export default class DateInput extends React.Component {
+export default class CascaderInput extends React.Component {
     render() {
         const {placeholder,label,...propsRest} = this.props
         const {touched, valid, error} = this.props.meta
-        const {value,...inputRest} = this.props.input
+        const {...inputRest} = this.props.input
         return (
             <FormItem help={touched && !valid ? error : ""}
                       validateStatus={touched && !valid ? "error" : "success"}>
                 {label ? <p className="field-label">{label}</p> : null}
-                <DatePicker {...inputRest} {...propsRest} value={value ? moment(value,dateFormat) : null} format={dateFormat} placeholder={placeholder}/>
+                <Cascader {...inputRest} {...propsRest} placeholder={placeholder} />
             </FormItem>
         )
     }

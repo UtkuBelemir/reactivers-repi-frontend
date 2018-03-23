@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Icon, Table, Button } from "antd";
-import allCoins from '../../../assets/currencyicons';
+import allCoins from '../../../../assets/currencyicons/index';
 
 const operationsCol = (path, push) => {
     return (
