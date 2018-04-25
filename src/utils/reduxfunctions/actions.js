@@ -119,7 +119,8 @@ export function getData(optData) {
                     data_name : optData.data_name,
                     data: newData.err
                 })
-                dispatch(showNotification(newData.err, "red"))
+                console.log("New Data",newData)
+                dispatch(showNotification(newData.err, "error"))
             } else {
                 dispatch({
                     type: types.FETCH_DATA_SUCCESS,

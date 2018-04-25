@@ -1,28 +1,23 @@
 import React from 'react';
 import { Input, Button, Card, Icon, Modal } from "antd";
-
+import {getData} from '../../../utils/reduxfunctions/actions'
+import {connect} from 'react-redux';
 
 /*
 ad, soyad, doğum tarihi, ülke, kimlik tipi, kimlik numara, foto ön, foto arka, kimlik selfie
 */
-
-const dummyData = {
-    firstName: "Murat",
-    lastName: "Güney",
-    email: "murat@iotabt.com",
-    phone: "+905054180558",
-    birthday: "02-02-1995",
-    national: "Türkiye",
-    idType: "id",
-    idNumber: "12312312312",
-    photoFront: "",
-    photoBehind: "",
-    photoSelfie: ""
-}
-
-export default class ProfileMain extends React.Component {
+let dummyData = {}
+class ProfileMain extends React.Component {
     state = {}
+    componentWillMount(){
+        this.props.getData({apiEndPoint : "profiledetails",data_name : "profile_details"})
+    }
     render() {
+        if (!this.props.profileDetails){
+            return (
+                <div>Yükleniyor...</div>
+            )
+        }
         return (
             <Card title="Profil Detayı" style={{ minHeight: 'inherit' }}>
                 <ChangePasswordDialog
@@ -34,10 +29,10 @@ export default class ProfileMain extends React.Component {
                     <Icon style={{ fontSize: 100 }} type="user" />
                     <div>
                         <div style={{ fontSize: 26, fontWeight: 'bold', lineHeight: '40px' }}>
-                            <Icon type="mail" /> {dummyData.email}
+                            <Icon type="mail" /> {this.props.profileDetails.email}
                         </div>
                         <div style={{ fontSize: 22, lineHeight: '40px' }}>
-                            <Icon type="mobile" /> {dummyData.phone}
+                            <Icon type="mobile" /> {this.props.profileDetails.phone_number_pre + "" +this.props.profileDetails.phone_number}
                         </div>
                     </div>
                 </div>
@@ -55,48 +50,15 @@ export default class ProfileMain extends React.Component {
                 <div className="profile-view-container">
                     <div className="profile-content-cell">
                         <p className="content-label">Ad</p>
-                        <p className="content-text">{dummyData.firstName}</p>
+                        <p className="content-text">{this.props.profileDetails.name}</p>
                     </div>
                     <div className="profile-content-cell">
                         <p className="content-label">Soyad</p>
-                        <p className="content-text">{dummyData.lastName}</p>
+                        <p className="content-text">{this.props.profileDetails.surname}</p>
                     </div>
                     <div className="profile-content-cell">
                         <p className="content-label">Doğum Tarihi</p>
-                        <p className="content-text">{dummyData.birthday}</p>
-                    </div>
-                    <div className="profile-content-cell">
-                        <p className="content-label">Ülke</p>
-                        <p className="content-text">{dummyData.national}</p>
-                    </div>
-                    <div className="profile-content-cell">
-                        <p className="content-label">Kimlik tipi</p>
-                        <p className="content-text">{dummyData.idType}</p>
-                    </div>
-                    <div className="profile-content-cell">
-                        <p className="content-label">Kimlik No</p>
-                        <p className="content-text">{dummyData.idNumber}</p>
-                    </div>
-                    <div className="profile-content-cell">
-                        <p className="content-label">Önden Kimlik Fotoğrafı</p>
-                        {dummyData.photoFront ?
-                            <p className="content-text">{dummyData.photoFront}</p>
-                            : <Icon type="idcard" style={{ fontSize: 200, width: "100%", backgroundColor: "#eee" }} />
-                        }
-                    </div>
-                    <div className="profile-content-cell">
-                        <p className="content-label">Arkadan Kimlik Fotoğrafı</p>
-                        {dummyData.photoBehind ?
-                            <p className="content-text">{dummyData.photoBehind}</p>
-                            : <Icon type="idcard" style={{ fontSize: 200, width: "100%", backgroundColor: "#eee" }} />
-                        }
-                    </div>
-                    <div className="profile-content-cell">
-                        <p className="content-label">Kimlik Selfie</p>
-                        {dummyData.photoSelfie ?
-                            <p className="content-text">{dummyData.photoSelfie}</p>
-                            : <Icon type="idcard" style={{ fontSize: 200, width: "100%", backgroundColor: "#eee" }} />
-                        }
+                        <p className="content-text">{this.props.profileDetails.birth_day}</p>
                     </div>
                 </div>
             </Card>
@@ -135,3 +97,4 @@ class ChangePasswordDialog extends React.Component {
         )
     }
 }
+export default connect( (state) => {return{ profileDetails : state && state.datas && state.datas.profile_details}} ,{getData})(ProfileMain)
