@@ -79,13 +79,13 @@ export function userLogin(redirect) {
 
 export function postData(optData) {
     return function (dispatch, state) {
-        return queryApi.sendData(state().form[optData.form].values, optData.params.apiEndPoint).then((newData) => {
+        return queryApi.sendData(optData.withoutForm ? optData.values : state().form[optData.form].values, optData.params.apiEndPoint).then((newData) => {
             if (newData.err) {
                 dispatch({
                     type: types.POST_DATA_FAILED,
                     data: newData.err
                 })
-                dispatch(showNotification(newData.err, "red"))
+                dispatch(showNotification(newData.err, "error"))
             } else {
                 dispatch({
                     type: types.POST_DATA_SUCCESS,

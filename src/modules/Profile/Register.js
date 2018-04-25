@@ -44,12 +44,9 @@ class UserRegister extends React.Component {
     constructor(props) {
         super(props);
         this.inputField = this.inputField.bind(this);
-        this.state = {
-            afterRegister : false
-        }
     }
     componentWillMount(){
-        this.props.initialize({ phone_number_pre: 'Türkiye:+90' });
+        this.props.initialize({ phone_number_pre: '+90' });
     }
     inputField(p) {
 
@@ -60,28 +57,23 @@ class UserRegister extends React.Component {
     selectField(p) {
         return (
                 <Select {...p.input} showSearch={true} style={{marginBottom : 24,flex : '0 0 150px'}}>
-                    <Option value="Afghanistan:+93">Afghanistan(+93)</Option>
-                    <Option value="Albania:+35">Albania(+35)</Option>
-                    <Option value="Algeria:+21">Algeria(+21)</Option>
-                    <Option value="American Samoa:+68">American Samoa(+68)</Option>
-                    <Option value="Andorra:+37">Andorra(+37)</Option>
-                    <Option value="Angola:+24">Angola(+24)</Option>
-                    <Option value="Anguilla:+80">Anguilla(+80)</Option>
-                    <Option value="Antigua:+26">Antigua(+26)</Option>
-                    <Option value="Argentina:+54">Argentina(+54)</Option>
-                    <Option value="Armenia:+37">Armenia(+37)</Option>
-                    <Option value="Aruba:+29">Aruba(+29)</Option>
-                    <Option value="Ascension Island:+24">Ascension Island(+24)</Option>
-                    <Option value="Türkiye:+90">Türkiye(+90)</Option>
+                    <Option value="+93">Afghanistan(+93)</Option>
+                    <Option value="+35">Albania(+35)</Option>
+                    <Option value="+21">Algeria(+21)</Option>
+                    <Option value="+68">American Samoa(+68)</Option>
+                    <Option value="+37">Andorra(+37)</Option>
+                    <Option value="+24">Angola(+24)</Option>
+                    <Option value="+80">Anguilla(+80)</Option>
+                    <Option value="+26">Antigua(+26)</Option>
+                    <Option value="+54">Argentina(+54)</Option>
+                    <Option value="+37">Armenia(+37)</Option>
+                    <Option value="+29">Aruba(+29)</Option>
+                    <Option value="+24">Ascension Island(+24)</Option>
+                    <Option value="+90">Türkiye(+90)</Option>
                 </Select>
         )
     }
     render() {
-        if(this.state.afterRegister){
-            return(
-                <div>Kayıt Başarılı ! <br/> Lütfen mailinizi kontrol ediniz</div>
-            )
-        }
         return (
             <div style={{minHeight: 'inherit', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Card title={<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><img
@@ -89,6 +81,12 @@ class UserRegister extends React.Component {
                     <div style={{padding: '1px 0px 1px 0px'}}>
                         <Field type="email" name="email" component={this.inputField}
                                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="E-Mail"/>
+                    </div>
+                    <div style={{padding: '1px 0px 1px 0px',display : 'flex',justifyContent : 'space-between',alignItems : 'center'}}>
+                        <Field name="name" component={this.inputField}
+                               prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Ad"/>
+                        <Field name="surname" component={this.inputField}
+                               prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Soyad"/>
                     </div>
                     <div style={{padding: '1px 0px 1px 0px',display : 'flex',justifyContent : 'center',alignItems : 'center'}}>
                         <Field type="phone" name="phone_number_pre" component={this.selectField} placeholder="E-Mail"/>
@@ -107,8 +105,7 @@ class UserRegister extends React.Component {
                         <Button type="primary" htmlType="submit" className="login-form-button"
                                 onClick={ () => this.props.postData({
                                     form : 'frm_user_register',
-                                    params : {apiEndPoint : 'users'},
-                                    onSave : () => this.setState({afterRegister : true})
+                                    params : {apiEndPoint : 'signup'},
                                 })}
                                 disabled={!this.props.anyTouched || !this.props.valid}>
                             Kayıt Ol

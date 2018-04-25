@@ -9,9 +9,9 @@ import UserLogin from "./modules/Profile/Login";
 import UserRegister from "./modules/Profile/Register";
 import NotificationManager from './components/Notifications'
 import ProfileIndex from "./modules/Profile/ProfileIndex";
+import EmailActivator from './modules/ActivationVerification/EmailActivator';
 import {connect} from 'react-redux'
 import {cookieLogin} from './utils/reduxfunctions/actions'
-
 class RouterIndex extends React.Component {
     componentWillMount(){
         console.log("aaa")
@@ -29,6 +29,7 @@ class RouterIndex extends React.Component {
                         <Route exact path="/register" component={UserRegister}/>
                         <Route exact path="/market/adv/:parity" component={AdvancedMarket}/>
                         <Route path="/profile/:subpage" component={ProfileIndex}/>
+                        <Route exact path="/activation/:code" component={EmailActivator}/>
                     </div>
                     <Route exact component={Footer}/>
                 </div>
