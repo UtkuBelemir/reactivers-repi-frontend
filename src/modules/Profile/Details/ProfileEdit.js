@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, Card} from "antd";
 import moment from 'moment'
-import {reduxForm,Field} from 'redux-form'
+import {reduxForm,Field,initialize as formInitiliazer} from 'redux-form'
 import {connect} from 'react-redux'
-import {postData} from '../../../utils/reduxfunctions/actions'
+import {upsertData,getData} from '../../../utils/reduxfunctions/actions'
 import TextInput from "../../../components/FormComponents/TextInput";
 import DateInput from "../../../components/FormComponents/DateInput";
 
@@ -12,12 +12,23 @@ ad, soyad, doğum tarihi, ülke, kimlik tipi, kimlik numara, foto ön, foto arka
 */
 
 class ProfileEdit extends React.Component {
-    state = {}
+    constructor(props){
+        super(props);
+        this.state = {}
+    }
+    componentWillMount(){
+        this.props.getData({apiEndPoint : "profiledetails",data_name : "profile_details",onLoad : (data) => this.props.formInitiliazer("frm_profile_edit",this.props.profileDetails)})
+    }
     //TODO : HATALI KAYIT GİRİLDİĞİNDE NOTIFICATIONS BOZULUYOR
     render() {
+        console.log(this.props)
         return (
             <div>
                 <Card title="Profil Düzenle" style={{minHeight: 'inherit'}}>
+                    <div className="container-cell">
+                        <Field type="email" name="email" component={TextInput} placeholder="E-mail" label="E-mail" disabled/>
+                        <div><i>Email adresi güvenlik nedeni ile değiştirilemez. Detaylı bilgi için destek talebi oluşturunuz</i></div>
+                    </div>
                     <div className="container-cell">
                         <Field type="name" name="name" component={TextInput} placeholder="Ad" label="Ad" />
                     </div>
@@ -27,9 +38,7 @@ class ProfileEdit extends React.Component {
                     <div className="container-cell">
                         <Field name="phone_number" component={TextInput} placeholder="Telefon" label="Telefon" />
                     </div>
-                    <div className="container-cell">
-                        <Field type="email" name="email" component={TextInput} placeholder="E-mail" label="E-mail" />
-                    </div>
+
                     <div className="container-cell">
                         <Field name="birth_day" component={DateInput} placeholder="Doğum Günü" label="Doğum Günü" style={{width : '100%'}} />
                     </div>
@@ -38,7 +47,7 @@ class ProfileEdit extends React.Component {
                                 style={{margin: 8}}>
                             Vazgeç
                         </Button>
-                        <Button type="primary" size="large" onClick={() => this.props.postData({
+                        <Button type="primary" size="large" onClick={() => this.props.upsertData({
                             form: 'frm_profile_edit',
                             params: {apiEndPoint: 'profiledetails'},
                             onSave: () => this.setState({afterRegister: true}),
@@ -54,4 +63,4 @@ class ProfileEdit extends React.Component {
     }
 }
 
-export default reduxForm({form: 'frm_profile_edit'})(connect(null, {postData})(ProfileEdit))
+export default reduxForm({form: 'frm_profile_edit'})(connect((state) => {return{ profileDetails : state && state.datas && state.datas.profile_details}}, {upsertData,getData,formInitiliazer})(ProfileEdit))
