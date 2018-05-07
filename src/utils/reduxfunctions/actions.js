@@ -4,6 +4,8 @@ import {coloredConsole, cookieByName, idGenerator} from "../utils";
 export const types = {
     POST_DATA_FAILED        : 'POST_DATA_FAILED',
     POST_DATA_SUCCESS       : 'POST_DATA_SUCCESS',
+    UPSERT_DATA_FAILED      : 'UPSERT_DATA_FAILED',
+    UPSERT_DATA_SUCCESS     : 'UPSERT_DATA_SUCCESS',
     PUSH_NOTIFICATION       : 'PUSH_NOTIFICATION',
     CLEAR_NOTIFICATION      : 'CLEAR_NOTIFICATION',
     LOGIN_USER_SUCCESS      : 'LOGIN_USER_SUCCESS',
@@ -109,6 +111,38 @@ export function postData(optData) {
         })
     }
 }
+export function upsertData(optData) {
+    return function (dispatch, state) {
+        return queryApi.putData(optData.withoutForm ? optData.values : state().form[optData.form].values, optData.params.apiEndPoint).then((newData) => {
+            if (newData.err) {
+                dispatch({
+                    type: types.UPSERT_DATA_FAILED,
+                    data: newData.err
+                })
+                dispatch(showNotification(newData.err, "error"))
+            } else {
+                dispatch({
+                    type: types.UPSERT_DATA_SUCCESS,
+                    data: newData
+                });
+                if (optData.successMsg) {
+                    dispatch(showNotification(optData.successMsg, "success"))
+                }
+                if (optData.onSave) {
+                    optData.onSave(newData.data)
+                }
+            }
+        }).catch((error) => {
+            dispatch({
+                type: types.UPSERT_DATA_FAILED,
+                data: error
+            })
+            if (optData.errMsg) {
+                dispatch(showNotification(optData.errMsg, "error"))
+            }
+        })
+    }
+}
 
 export function getData(optData) {
     return function (dispatch, state) {
@@ -130,8 +164,9 @@ export function getData(optData) {
                 if (optData.successMsg) {
                     dispatch(showNotification(optData.successMsg, "success"))
                 }
-                if (optData.onSave) {
-                    optData.onSave(newData.data)
+                if (optData.onLoad) {
+                    console.log("NEW DAHATA",newData)
+                    optData.onLoad(newData.data)
                 }
             }
         }).catch((error) => {

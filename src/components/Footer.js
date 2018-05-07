@@ -4,7 +4,7 @@ export default class Footer extends React.Component{
         return(
             <footer style={{height : 64,backgroundColor : '#EEE',width : '100%'}}>
                 <div style={{maxWidth : 1200,margin : '0 auto',display : 'flex',alignItems :'center',height :'100%'}}>
-                    Şirket Adı 2018 Falan
+                    Footer
                 </div>
             </footer>
         )

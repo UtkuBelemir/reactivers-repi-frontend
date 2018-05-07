@@ -19,7 +19,7 @@ class Header extends React.Component {
                     style={{borderBottom: 'none'}}
                     onClick={(e) => this.props.history.push(e.key)}
                     mode="horizontal">
-                    <SubMenu title={<span><Icon type="user"/>Ahmet Dereli</span>} style={{
+                    <SubMenu title={<span><Icon type="user"/>Utku Belemir Elmalıoğlu</span>} style={{
                         height: 64,
                         display: 'flex',
                         alignItems: 'center',
