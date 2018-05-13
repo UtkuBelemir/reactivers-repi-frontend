@@ -89,9 +89,9 @@ class UserRegister extends React.Component {
                                prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Soyad"/>
                     </div>
                     <div style={{padding: '1px 0px 1px 0px',display : 'flex',justifyContent : 'center',alignItems : 'center'}}>
-                        <Field type="phone" name="phone_number_pre" component={this.selectField} placeholder="E-Mail"/>
+                        <Field type="phone" name="phone_number_pre" component={this.selectField} placeholder="Alan Kodu"/>
                         <Field type="tel" name="phone_number" component={this.inputField} style={{flex : 4}}
-                               prefix={<Icon type="phone" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Phone Number"/>
+                               prefix={<Icon type="phone" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Telefon"/>
                     </div>
                     <div style={{marginBottom: 12, padding: '1px 0px 1px 0px'}}>
                         <Field type="password" name="password" component={this.inputField}
