@@ -27,26 +27,26 @@ export function cookieLogin() {
                 if (newData.err == null) {
                     dispatch({
                         type: types.COOKIE_IS_VALID,
-                        data: {token : token}
+                        data: newData
                     })
                 } else {
                     coloredConsole("CheckLoggedIn Error 1 : " + newData.err)
                     dispatch({
                         type: types.COOKIE_IS_NOT_VALID,
-                        data: {}
+                        data: {err : "cookie_is_not_valid"}
                     })
                 }
             }).catch(err => {
                 coloredConsole("CheckLoggedIn Error 2 : " + err)
                 dispatch({
                     type: types.COOKIE_IS_NOT_VALID,
-                    data: {}
+                    data: {err : "cookie_is_not_valid"}
                 })
             })
         } else {
             dispatch({
                 type: types.COOKIE_IS_NOT_VALID,
-                data: {}
+                data: {err : "cookie_is_not_valid"}
             })
         }
     }

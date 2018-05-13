@@ -11,8 +11,13 @@ export function userReducer(state = {}, action) {
     switch (action.type) {
         case types.LOGIN_USER_SUCCESS:
             document.cookie = "bikriptAuth="+action.data.token
+            console.log("ACTİON DATA",action.data)
             return {...state, ...action.data}
         case types.COOKIE_IS_VALID:
+            console.log("ACTİON DATA",action.data)
+            return {...state, ...action.data}
+        case types.COOKIE_IS_NOT_VALID:
+            console.log("ACTİON DATA",action.data)
             return {...state, ...action.data}
         default :
             return state

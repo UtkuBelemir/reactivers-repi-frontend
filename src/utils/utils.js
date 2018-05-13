@@ -16,3 +16,6 @@ export const validateEmail = (email) => {
 export const coloredConsole = function (string){
     console.log('%c ' + string, 'background: #222; color: red;font-size : 16px ');
 }
+export const psqlDateToString= function (dateString){
+
+}

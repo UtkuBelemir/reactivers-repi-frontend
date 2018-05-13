@@ -13,13 +13,14 @@ class Header extends React.Component {
     }
 
     profileButton() {
-        if (this.props.userInfo && this.props.userInfo.token)
+        const {token,name,surname,email,err} =this.props.userInfo;
+        if (token)
             return (
                 <Menu
                     style={{borderBottom: 'none'}}
                     onClick={(e) => this.props.history.push(e.key)}
                     mode="horizontal">
-                    <SubMenu title={<span><Icon type="user"/>Utku Belemir Elmalıoğlu</span>} style={{
+                    <SubMenu title={<span><Icon type="user"/>{`${name} ${surname}`}</span>} style={{
                         height: 64,
                         display: 'flex',
                         alignItems: 'center',
@@ -48,6 +49,7 @@ class Header extends React.Component {
                     </SubMenu>
                 </Menu>
             );
+        if(err)
         return (
             <div style={{display: 'flex'}}>
                 <div style={{
@@ -89,6 +91,45 @@ class Header extends React.Component {
                 </Menu>
             </div>
         );
+        else
+            return (
+                <div style={{display: 'flex'}}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRight: '1px solid #EEE',
+                        borderLeft: '1px solid #EEE'
+                    }}>
+                        <div style={{
+                            padding: '0 20px',
+                            position: 'relative',
+                            height: 46,
+                            top: -1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            Yükleniyor...
+                        </div>
+                    </div>
+                    <Menu
+                        style={{borderBottom: 'none'}}
+                        onClick={(e) => this.props.history.push(e.key)}
+                        mode="horizontal">
+
+                        <SubMenu title={<span><Icon type="global"/>Türkçe</span>}
+                                 style={{height: 64, display: 'flex', alignItems: 'center'}}>
+                            <Menu.Item key="language:tr">İngilizce</Menu.Item>
+                            <Menu.Item key="language:ar">Arapça</Menu.Item>
+                            <Menu.Item key="language:ru">Rusça</Menu.Item>
+                            <Menu.Item key="language:ch">Çince</Menu.Item>
+                            <Menu.Item key="language:ge">Almanca</Menu.Item>
+                            <Menu.Item key="language:fr">Fransızca</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </div>
+            )
     }
 
     render() {
